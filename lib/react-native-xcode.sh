@@ -80,6 +80,10 @@ if [[ -x "$HOME/.nodenv/bin/nodenv" ]]; then
   eval "$("$HOME/.nodenv/bin/nodenv" init -)"
 fi
 
+[ -z "$YARN_BINARY" ] && export YARN_BINARY="yarn"
+
+[ -z "$HAUL_BINARY" ] && export HAUL_BINARY="haul"
+
 [ -z "$NODE_BINARY" ] && export NODE_BINARY="node"
 
 [ -z "$CLI_PATH" ] && export CLI_PATH="$REACT_NATIVE_DIR/local-cli/cli.js"
@@ -135,7 +139,7 @@ fi
 
 BUNDLE_FILE="$DEST/main.jsbundle"
 
-$NODE_BINARY "$CLI_PATH" $BUNDLE_COMMAND \
+$YARN_BINARY $HAUL_BINARY $BUNDLE_COMMAND \
   $CONFIG_ARG \
   --entry-file "$ENTRY_FILE" \
   --platform ios \
