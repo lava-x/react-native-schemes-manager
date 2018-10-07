@@ -22,6 +22,8 @@ function updateProject (project) {
 			const env = scriptSettings.env || [];
 
 			const devConfigs = `\\"+(${configurations}${configurations.length ? '|' : ''}Debug)\\"`;
+			const extraArgs = `\\"--white-label \${WHITE_LABEL\}\\"`;
+			env.EXTRA_PACKAGER_ARGS = extraArgs;
 			env.DEVELOPMENT_BUILD_CONFIGURATIONS = devConfigs;
 			env.NODE_BINARY = env.NODE_BINARY || 'node';
 
@@ -29,7 +31,7 @@ function updateProject (project) {
 				.map((key) => [key, env[key]])
 				.map(([key, value]) => `export ${key}=${value}`);
 
-			const runCommand = `${nodeCommand}../node_modules/react-native-schemes-manager/lib/react-native-xcode.sh`;
+			const runCommand = `${nodeCommand}../node_modules/react-native-schemes-manager/lib/react-native-xcode.sh ./src/native/index.ios.js`;
 
 			const commands = [
 				...exports,
